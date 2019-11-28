@@ -45,6 +45,9 @@ if(childpid == 0) { // 1256664876886345212
 	}
 
 	write(fd2[1], &sumOfEvens, sizeof(getIn));
+
+	close(fd1[0]);
+	close(fd2[1]);
 	
 
 
@@ -66,9 +69,11 @@ else {
 	write(fd1[1], inputNum, sizeof(inputNum));
 
 	int evensSum;
-	wait(3);
 	read(fd2[0], &evensSum, sizeof(inputNum));
 	printf("%s The sum of even digits in the input number :%d\n", inputNum, evensSum);
+	
+	close(fd1[1]);
+	close(fd2[0]);
 
 	
 }
