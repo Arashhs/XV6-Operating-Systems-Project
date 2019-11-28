@@ -1,12 +1,16 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
 
 int main()
 {
-int fd[2];
+int fd1[2];
+int fd2[2];
+
 pid_t childpid;
-pipe(fd);
+pipe(fd1);
+pipe(fd2);
 
 
 
