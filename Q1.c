@@ -27,24 +27,48 @@ if(childpid == 0) { // 1256664876886345212
 	close(fd1[1]);
 	close(fd2[0]);
 	
-	char getIn[50]; //input number
-	read(fd1[0], getIn, sizeof(getIn));
+	char getIn[50]; 
+	read(fd1[0], getIn, sizeof(getIn)); //Get input from parent
 
 	int numSize = 0;
 	int i = 0;;
 	for(i=0; getIn[i] != '\0' ; ++i);
-	numSize = i;
+	numSize = i; //Number of digits of the input number
 	
-	int sumOfEvens;
+	int sumOfEvens = 0;
 	
-	
+	/* Calculating sum of even digits */
 	for(i=0; i<numSize; i++) {
 		int d = getIn[i] - '0';
 		if (d%2 == 0)
 			sumOfEvens += d;
 	}
 
-	write(fd2[1], &sumOfEvens, sizeof(getIn));
+	int sumDigits = 0;
+	int sumTemp = sumOfEvens;
+	
+	/* Calculating number of digits of sumOfEvens */
+	while(sumTemp != 0) {
+	sumDigits++;
+	sumTemp /= 10;
+	}
+
+	char outStr[100] = "The sum of even digits in the input number :";
+	for(i=0; outStr[i] != '\0' ; ++i);
+	int outStrLen = i;
+
+	sumTemp = sumOfEvens;
+	
+	/* Concatenating outStr with sumOfEvens */
+	
+	for(i=sumDigits-1 ; i>=0; i--) {
+		int tmp1 = sumTemp%10;
+		sumTemp /= 10;
+		char c = (char) (tmp1 + '0');
+		outStr[outStrLen + i] = c;
+	} 
+
+	write(fd2[1], outStr, sizeof(outStr)); //Sending result to the parent
 
 	close(fd1[0]);
 	close(fd2[1]);
@@ -63,14 +87,14 @@ else {
 
 	char inputNum[50];
 	printf("Enter your number: ");
-	scanf("%s", inputNum);
+	scanf("%s", inputNum); //Getting input
 	
 
-	write(fd1[1], inputNum, sizeof(inputNum));
+	write(fd1[1], inputNum, sizeof(inputNum)); //Sending input to the child
 
-	int evensSum;
-	read(fd2[0], &evensSum, sizeof(inputNum));
-	printf("%s The sum of even digits in the input number :%d\n", inputNum, evensSum);
+	char result[100];
+	read(fd2[0], result, sizeof(result)); //Getting result from the child
+	printf("%s\n", result);
 	
 	close(fd1[1]);
 	close(fd2[0]);
