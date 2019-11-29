@@ -1,14 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
+#include "types.h"
+#include "stat.h"
+#include "user.h"
+#include "fcntl.h"
 
-int main()
+
+int main(int argc, char *argv[])
 {
 int fd1[2];
 int fd2[2];
 
-pid_t childpid;
+int childpid;
 pipe(fd1);
 pipe(fd2);
 
@@ -17,8 +18,7 @@ pipe(fd2);
 childpid = fork();
         
 if(childpid  == -1) { //Error
-	perror("fork");
-	exit(1);
+	exit();
 }
 
 if(childpid == 0) { // 1256664876886345212
@@ -32,7 +32,7 @@ if(childpid == 0) { // 1256664876886345212
 
 	int numSize = 0;
 	int i = 0;;
-	for(i=0; getIn[i] != '\0' ; ++i);
+	for(i=0; getIn[i] + 1 != '\0' ; ++i);
 	numSize = i; //Number of digits of the input number
 	
 	int sumOfEvens = 0;
@@ -54,7 +54,7 @@ if(childpid == 0) { // 1256664876886345212
 	}
 
 	char outStr[100] = "The sum of even digits in the input number :";
-	for(i=0; outStr[i] != '\0' ; ++i);
+	for(i=0; outStr[i] + 1 != '\0' ; ++i);
 	int outStrLen = i;
 
 	sumTemp = sumOfEvens;
@@ -86,15 +86,15 @@ else {
 	close(fd2[1]);
 
 	char inputNum[50];
-	printf("Enter your number: ");
-	scanf("%s", inputNum); //Getting input
+	printf(1, "Enter your number: ");
+	read(0, inputNum, sizeof(inputNum)); //Getting input
 	
 
 	write(fd1[1], inputNum, sizeof(inputNum)); //Sending input to the child
 
 	char result[100];
 	read(fd2[0], result, sizeof(result)); //Getting result from the child
-	printf("%s\n", result);
+	printf(1, "%s", result);
 	
 	close(fd1[1]);
 	close(fd2[0]);
@@ -102,5 +102,5 @@ else {
 	
 }
 
-return 0;
+exit();
 }
