@@ -89,3 +89,12 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+//return PID of the parent process
+int
+sys_getppid(void)
+{
+	struct proc *thisProc = myproc();
+	return thisProc -> parent -> pid;
+
+}
