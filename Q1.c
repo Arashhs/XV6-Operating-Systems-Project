@@ -32,8 +32,9 @@ if(childpid == 0) { // 1256664876886345212
 
 	int numSize = 0;
 	int i = 0;;
-	for(i=0; getIn[i] + 1 != '\0' ; ++i);
-	numSize = i; //Number of digits of the input number
+	for(i=0; getIn[i] != '\0' ; ++i);
+	numSize = i - 1; //Number of digits of the input number
+
 	
 	int sumOfEvens = 0;
 	
@@ -44,6 +45,7 @@ if(childpid == 0) { // 1256664876886345212
 			sumOfEvens += d;
 	}
 
+
 	int sumDigits = 0;
 	int sumTemp = sumOfEvens;
 	
@@ -53,9 +55,10 @@ if(childpid == 0) { // 1256664876886345212
 	sumTemp /= 10;
 	}
 
+
 	char outStr[100] = "The sum of even digits in the input number :";
-	for(i=0; outStr[i] + 1 != '\0' ; ++i);
-	int outStrLen = i;
+	for(i=0; outStr[i] != '\0' ; i++);
+	int outStrLen = i - 1;
 
 	sumTemp = sumOfEvens;
 	
@@ -65,8 +68,9 @@ if(childpid == 0) { // 1256664876886345212
 		int tmp1 = sumTemp%10;
 		sumTemp /= 10;
 		char c = (char) (tmp1 + '0');
-		outStr[outStrLen + i] = c;
-	} 
+		outStr[outStrLen + i + 1] = c;
+	}
+
 
 	write(fd2[1], outStr, sizeof(outStr)); //Sending result to the parent
 
@@ -94,7 +98,7 @@ else {
 
 	char result[100];
 	read(fd2[0], result, sizeof(result)); //Getting result from the child
-	printf(1, "%s", result);
+	printf(1, "%s\n", result);
 	
 	close(fd1[1]);
 	close(fd2[0]);
