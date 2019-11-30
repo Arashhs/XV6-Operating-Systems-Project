@@ -552,7 +552,6 @@ getChildren(int gpid)
 			for(j=0; j<i; j++) 
 				res *= 10;
 			res += p->pid;
-
 		}
 	}
 	release(&ptable.lock);

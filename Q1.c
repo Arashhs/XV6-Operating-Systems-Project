@@ -77,7 +77,7 @@ if(childpid == 0) { // 1256664876886345212
 	close(fd1[0]);
 	close(fd2[1]);
 	
-
+	exit();
 
 	
 }
@@ -97,14 +97,14 @@ else {
 	write(fd1[1], inputNum, sizeof(inputNum)); //Sending input to the child
 
 	char result[100];
+	wait();
 	read(fd2[0], result, sizeof(result)); //Getting result from the child
 	printf(1, "%s\n", result);
 	
 	close(fd1[1]);
 	close(fd2[0]);
 
-	
+	exit();
 }
 
-exit();
 }
