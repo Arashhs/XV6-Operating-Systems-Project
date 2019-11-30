@@ -532,3 +532,32 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+
+//return children's pid
+int
+getChildren(int gpid)
+{
+	
+	struct proc *p;
+	int res = 0;
+	acquire(&ptable.lock);
+
+  	for(p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
+   		if(p->parent->pid == gpid) {
+			int i;
+			int temp = p->pid;
+			for(i=0; temp != 0; i++, temp /= 10);
+			int j;
+			for(j=0; j<i; j++) 
+				res *= 10;
+			res += p->pid;
+
+		}
+	}
+	release(&ptable.lock);
+    		  
+	return res;
+}
+
+

@@ -101,9 +101,10 @@ sys_getppid(void)
 
 //return children's pid
 int
-sys_getChildren(int pid)
+sys_getChildren(void)
 {
-	int cpid;
-	argint(0, &cpid);
-	return cpid;
+	int gpid; //given process id
+	argint(0, &gpid);
+	int res = getChildren(gpid);
+	return res;
 }
