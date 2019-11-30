@@ -98,3 +98,12 @@ sys_getppid(void)
 	return thisProc -> parent -> pid;
 
 }
+
+//return children's pid
+int
+sys_getChildren(int pid)
+{
+	int cpid;
+	argint(0, &cpid);
+	return cpid;
+}
