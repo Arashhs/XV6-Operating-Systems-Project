@@ -558,5 +558,3 @@ getChildren(int gpid)
     		  
 	return res;
 }
-
-

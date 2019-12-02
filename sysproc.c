@@ -108,3 +108,13 @@ sys_getChildren(void)
 	int res = getChildren(gpid);
 	return res;
 }
+
+//return number of times a certain process has been invoked
+int
+sys_getCount(void)
+{
+	int count; //given process id
+	argint(0, &count);
+	struct proc *thisProc = myproc();
+	return thisProc -> sysCounter[count-1];
+}
