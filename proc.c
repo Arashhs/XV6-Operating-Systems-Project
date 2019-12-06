@@ -89,9 +89,13 @@ found:
   p->state = EMBRYO;
   p->pid = nextpid++;
 
+	//setting syscallCounter to 0
 	int i;
 	for(i=0; i<SYS_CALLS_NUM; i++)
 		p->sysCounter[i] = 0;
+
+	p->priority = 5;    //default priority
+	p->calculatedPriority = 0;
 
   release(&ptable.lock);
 

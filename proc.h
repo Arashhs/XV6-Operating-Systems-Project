@@ -52,9 +52,9 @@ struct proc {
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
 
-  int sysCounter[24];					 // Counter for number of called systemcalls
-	int priority; 							 // Process priority in range [1, 5]. Lower -> higher priority.
-	int calculatedPriority;			 // Calculated priority. Lower -> higher priority.
+  int sysCounter[24];		// Counter for number of called systemcalls
+  int priority;		// Process priority in range [1, 5]. Lower -> higher priority.
+  int calculatedPriority;	// Calculated priority. Lower -> higher priority.
 };
 
 

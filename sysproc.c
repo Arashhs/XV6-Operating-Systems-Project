@@ -118,3 +118,18 @@ sys_getCount(void)
 	struct proc *thisProc = myproc();
 	return thisProc -> sysCounter[count-1];
 }
+
+//Change priority, return 1 if successful. If not, return -1
+int
+sys_changePriority(void)
+{
+	int pr;
+	argint(0, &pr);
+	struct proc *thisProc = myproc();
+	if (pr<1 || pr>5)
+		return -1;
+	thisProc -> priority = pr;
+	return 1;
+	
+
+}
