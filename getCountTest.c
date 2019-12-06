@@ -19,8 +19,12 @@ else if (i == 2) {
 	argint *= 10;
 	argint += (a[1] - '0');
 }
+// Calling system calls for test
 wait();
 wait();
+sleep(1);
+sleep(1);
+uptime();
 printf(1, "%d\n", getCount(argint));
 exit();
 }
