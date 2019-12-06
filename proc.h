@@ -1,3 +1,5 @@
+#define SYS_CALLS_NUM 24
+
 // Per-CPU state
 struct cpu {
   uchar apicid;                // Local APIC ID
@@ -54,6 +56,8 @@ struct proc {
 	int priority; 							 // Process priority in range [1, 5]. Lower -> higher priority.
 	int calculatedPriority;			 // Calculated priority. Lower -> higher priority.
 };
+
+
 
 // Process memory is laid out contiguously, low addresses first:
 //   text
