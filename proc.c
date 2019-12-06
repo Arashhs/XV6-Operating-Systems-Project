@@ -360,6 +360,8 @@ scheduler(void)
       switchuvm(p);
       p->state = RUNNING;
 
+			p->processTicks = 0;
+
       swtch(&(c->scheduler), p->context);
       switchkvm();
 
@@ -398,14 +400,25 @@ sched(void)
   mycpu()->intena = intena;
 }
 
+
+
 // Give up the CPU for one scheduling round.
 void
 yield(void)
 {
+
+	myproc()->processTicks++;
+	
+	if(schedPolicy == MDP && myproc()->processTicks < QUANTUM) {
+		//No need for CS.
+	}
+	
+	else {
   acquire(&ptable.lock);  //DOC: yieldlock
   myproc()->state = RUNNABLE;
   sched();
   release(&ptable.lock);
+	} 
 }
 
 // A fork child's very first scheduling by scheduler()
@@ -583,5 +596,6 @@ changePolicy(int policy)
 	if (policy<0 || policy>2)
 		return -1;
 	schedPolicy = policy;
+//	cprintf("Policy: %d\n", schedPolicy);
 	return 1;
 }

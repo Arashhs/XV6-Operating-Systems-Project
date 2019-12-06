@@ -1,4 +1,4 @@
-#define SYS_CALLS_NUM 24
+#define SYS_CALLS_NUM 26
 
 // Per-CPU state
 struct cpu {
@@ -52,7 +52,7 @@ struct proc {
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
 
-  int sysCounter[24];		// Counter for number of called systemcalls
+  int sysCounter[SYS_CALLS_NUM];// Counter for number of called systemcalls
   int priority;		// Process priority in range [1, 5]. Lower -> higher priority.
   int calculatedPriority;	// Calculated priority. Lower -> higher priority.
   int processTicks;  // number of ticks passed (if < QUANTUM -> no CS needed)
