@@ -129,7 +129,7 @@ sys_changePriority(void)
 	if (pr<1 || pr>5)
 		return -1;
 	thisProc -> priority = pr;
-	cprintf("Priority: %d\n", thisProc -> priority);
+//	cprintf("Priority: %d\n", thisProc -> priority);
 	return 1;
 	
 }

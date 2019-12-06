@@ -3,7 +3,6 @@
 #include "user.h"
 #include "fcntl.h"
 
-
 int main(int argc, char *argv[])
 {
 int i, argint = 0;
@@ -14,10 +13,14 @@ if (i == 1) {
 }
 changePolicy(argint);
 
-fork();
-
-for(i=0; i<20; );
-
+int id = fork();
+if (id == 0)
+	changePriority(1);
+int z,x;
+ for ( z = 0; z < 10; z += 0.0001 ) {
+         x =  x + 3.14 * 89.64;
+	printf(1, "PID: %d\n", getpid());
+	}
 
 exit();
-}
+} 
