@@ -7,6 +7,15 @@
 #include "proc.h"
 #include "spinlock.h"
 
+//Available scheduler policies
+#define DP          0      // Default XV6 policy
+#define MDP         1      // Modified XV6's default policy
+#define MPS         2      // Modified priority scheduling policy
+
+int schedPolicy = DP;
+
+
+
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -565,4 +574,14 @@ getChildren(int gpid)
 	release(&ptable.lock);
     		  
 	return res;
+}
+
+//Change scheduler's policy
+int
+changePolicy(int policy)
+{
+	if (policy<0 || policy>2)
+		return -1;
+	schedPolicy = policy;
+	return 1;
 }

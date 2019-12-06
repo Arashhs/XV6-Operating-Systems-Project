@@ -131,5 +131,14 @@ sys_changePriority(void)
 	thisProc -> priority = pr;
 	return 1;
 	
+}
 
+//Change scheduler's policy
+int
+sys_changePolicy(void)
+{
+	int policy;
+	argint(0, &policy);
+	int res = changePolicy(policy);
+	return res;
 }
