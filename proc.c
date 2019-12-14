@@ -107,6 +107,12 @@ found:
 
 	p->priority = 5;    //default priority
 	p->processTicks = 0;
+	p->creationTime = ticks;
+	p->terminationTime = 0;
+	p->sleepingTime = 0;
+	p->readyTime = 0;
+	p->runningTime = 0;
+  //cprintf("ctime: %d\n", p->creationTime);
 
 	int minCalcP = 2147483647; //Max int val;
 	int check = 0;
@@ -127,7 +133,7 @@ found:
 		p->calculatedPriority = minCalcP;
 	}
 
-	cprintf("%d\n", p->calculatedPriority);
+	//cprintf("%d\n", p->calculatedPriority);
 
 
 
@@ -305,6 +311,10 @@ exit(void)
 
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
+
+  myproc()->terminationTime = ticks;
+  cprintf("creationTime: %d   terminationTime: %d\n", myproc()->creationTime, myproc()->terminationTime);
+
   sched();
   panic("zombie exit");
 }
@@ -677,6 +687,29 @@ getChildren(int gpid)
 	return res;
 }
 
+//update each process times
+void 
+updateProcessTimes(){
+  struct proc *p;
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    switch(p->state) {
+      case SLEEPING:
+        p->sleepingTime++;
+        break;
+      case RUNNABLE:
+        p->readyTime++;
+        break;
+      case RUNNING:
+        p->runningTime++;
+        break;
+      default:
+      ;
+    }
+  }
+  release(&ptable.lock);
+}
+
 //Change scheduler's policy
 int
 changePolicy(int policy)
@@ -687,3 +720,5 @@ changePolicy(int policy)
 //	cprintf("Policy: %d\n", schedPolicy);
 	return 1;
 }
+
+

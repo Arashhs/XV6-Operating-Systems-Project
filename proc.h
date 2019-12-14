@@ -56,6 +56,11 @@ struct proc {
   int priority;		// Process priority in range [1, 5]. Lower -> higher priority.
   int calculatedPriority;	// Calculated priority. Lower -> higher priority.
   int processTicks;  // number of ticks passed (if < QUANTUM -> no CS needed)
+  int creationTime;
+  int terminationTime;
+  int sleepingTime;
+  int readyTime;
+  int runningTime;
 };
 
 

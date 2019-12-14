@@ -16,11 +16,6 @@ changePolicy(argint);
 int id = fork();
 if (id == 0)
 	changePriority(1);
-int z,x;
- for ( z = 0; z < 10; z += 0.0001 ) {
-         x =  x + 3.14 * 89.64;
-	printf(1, "PID: %d\n", getpid());
-	}
 
 exit();
 } 

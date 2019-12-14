@@ -122,6 +122,7 @@ void            wakeup(void*);
 void            yield(void);
 int		getChildren(int);
 int		changePolicy(int);
+void		updateProcessTimes(void);
 
 // swtch.S
 void            swtch(struct context**, struct context*);
