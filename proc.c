@@ -106,7 +106,7 @@ found:
 		p->sysCounter[i] = 0;
 
 	p->priority = 5;    //default priority
-	p->processTicks = 0;
+//	p->processTicks = 0;
 	p->creationTime = ticks;
 	p->terminationTime = 0;
 	p->sleepingTime = 0;
@@ -412,7 +412,7 @@ scheduler(void)
 		}
 
 		else {
-		
+
 
 		for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
@@ -430,9 +430,8 @@ scheduler(void)
       // It should have changed its p->state before coming back.
       c->proc = 0;
     }
+    }
 
-
-		}
     release(&ptable.lock);
   }
 }
@@ -506,13 +505,17 @@ yield(void)
 {
 
 	myproc()->processTicks++;
+  //procTicks++;
+  //cprintf("pid %d\n", myproc()->pid);
 	
 	if(schedPolicy == MDP && myproc()->processTicks < QUANTUM) {
 		//No need for CS.
-    //cprintf("ptick %d\n", myproc()->processTicks);
+    cprintf("pid %d  %d\n", myproc()->pid, myproc()->runningTime);
 	}
 	
 	else {
+  //procTicks = 0;
+  myproc()->processTicks = 0;
   acquire(&ptable.lock);  //DOC: yieldlock
   myproc()->state = RUNNABLE;
   sched();

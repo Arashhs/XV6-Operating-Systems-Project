@@ -1,4 +1,4 @@
-#define SYS_CALLS_NUM 26
+#define SYS_CALLS_NUM 30
 
 //time statistics variables struct
 struct timeVariables{

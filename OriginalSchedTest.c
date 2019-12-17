@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-    changePolicy(1) //Set scheduling policy to Modified Original Schedulin Policy
+    changePolicy(1); //Set scheduling policy to Modified Original Schedulin Policy
     struct timeVariables * tv = malloc (sizeof (struct timeVariables));
 
     printf( 1, "[dad] pid %d\n", getpid() );
