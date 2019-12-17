@@ -510,7 +510,7 @@ yield(void)
 	
 	if(schedPolicy == MDP && myproc()->processTicks < QUANTUM) {
 		//No need for CS.
-    cprintf("pid %d  %d\n", myproc()->pid, myproc()->runningTime);
+    //cprintf("pid %d  %d\n", myproc()->pid, myproc()->runningTime);
 	}
 	
 	else {
