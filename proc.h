@@ -1,5 +1,14 @@
 #define SYS_CALLS_NUM 26
 
+//time statistics variables struct
+struct timeVariables{
+    int creationTime; 
+    int terminationTime; 
+    int sleepingTime; 
+    int readyTime; 
+    int runningTime;
+    };
+
 // Per-CPU state
 struct cpu {
   uchar apicid;                // Local APIC ID

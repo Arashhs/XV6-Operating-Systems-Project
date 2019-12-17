@@ -10,6 +10,8 @@ struct sleeplock;
 struct stat;
 struct superblock;
 
+struct timeVariables;
+
 // bio.c
 void            binit(void);
 struct buf*     bread(uint, uint);
@@ -120,9 +122,11 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
-int		getChildren(int);
-int		changePolicy(int);
-void		updateProcessTimes(void);
+int		        getChildren(int);
+int		        changePolicy(int);
+void		    updateProcessTimes(void);
+int             waitForChild(struct timeVariables*);
+
 
 // swtch.S
 void            swtch(struct context**, struct context*);

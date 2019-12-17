@@ -143,3 +143,13 @@ sys_changePolicy(void)
 	int res = changePolicy(policy);
 	return res;
 }
+
+//Wait for child
+int
+sys_waitForChild(void)
+{
+	struct timeVariables * tv;
+  argptr(0, (void*)&tv ,sizeof(*tv));
+  //cprintf("tv: %d %d %d %d %d\n", tv->creationTime, tv->readyTime, tv->runningTime, tv->sleepingTime, tv->terminationTime);
+  return waitForChild(tv);
+}
