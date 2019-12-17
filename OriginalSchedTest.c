@@ -5,16 +5,17 @@
 
 int main(int argc, char *argv[])
 {
-    changePolicy(1); //Set scheduling policy to Modified Original Schedulin Policy
+    changePolicy(1); //Set scheduling policy to Modified Original Scheduling Policy
     struct timeVariables * tv = malloc (sizeof (struct timeVariables));
 
-    printf( 1, "[dad] pid %d\n", getpid() );
+    // printf( 1, "[dad] pid %d\n", getpid() );
 
     for ( int i = 0; i < 10; i++ ){
         if ( fork() == 0 )
         {
             for(int j = 0; j<1000; j++) {
-                printf( 1, "pid: %d\n", getpid());
+             //   printf( 1, "pid: %d\n", getpid());
+             printf(1, "%d: %d\n", getpid(), j);
             }
             exit();
         }
