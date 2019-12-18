@@ -116,6 +116,8 @@ sys_getCount(void)
 	int count; //given process id
 	argint(0, &count);
 	struct proc *thisProc = myproc();
+  if(count <= 0)
+    return -1;
 	return thisProc -> sysCounter[count-1];
 }
 
