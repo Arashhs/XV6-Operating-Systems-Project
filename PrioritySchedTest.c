@@ -10,9 +10,24 @@ int main(int argc, char *argv[])
 
    // printf( 1, "[dad] pid %d\n", getpid() );
 
+   char printData[10];
+    printData[3] = ':';
+    printData[4] = ' ';
+    printData[9] = '\n';
+    int temp;
+
     for ( int i = 1; i < 26; i++ ){
         if ( fork() == 0 )
         {
+            temp = i;
+            for (int k = 2; k>=0; k--){
+                if(temp == 0) {
+                    printData[k] = ' ';
+                    continue;
+                }
+                printData[k] = (temp % 10) + '0';
+                temp /= 10;
+            }
 
             if(i < 6)
                 changePriority(5);
@@ -26,7 +41,17 @@ int main(int argc, char *argv[])
                 changePriority(1);
 
             for(int j = 0; j<500; j++) {
-                printf( 1, "%d: %d\n", i, j);
+                temp = j;
+                for (int k = 8; k>4; k--){
+                if(temp == 0) {
+                    printData[k] = ' ';
+                    continue;
+                }
+                printData[k] = (temp % 10) + '0';
+                temp /= 10;
+                }
+            //    printf( 1, "%d: %d\n", i, j);
+             write(1, printData, sizeof(printData));
             }
             exit();
         }

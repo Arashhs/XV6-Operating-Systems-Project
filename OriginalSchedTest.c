@@ -9,13 +9,37 @@ int main(int argc, char *argv[])
     struct timeVariables * tv = malloc (sizeof (struct timeVariables));
 
     // printf( 1, "[dad] pid %d\n", getpid() );
+    char printData[10];
+    printData[3] = ':';
+    printData[4] = ' ';
+    printData[9] = '\n';
+    int temp;
 
     for ( int i = 0; i < 10; i++ ){
         if ( fork() == 0 )
         {
+            temp = getpid();
+            for (int k = 2; k>=0; k--){
+                if(temp == 0) {
+                    printData[k] = ' ';
+                    continue;
+                }
+                printData[k] = (temp % 10) + '0';
+                temp /= 10;
+            }
             for(int j = 0; j<1000; j++) {
+            temp = j;
+            for (int k = 8; k>4; k--){
+                if(temp == 0) {
+                    printData[k] = ' ';
+                    continue;
+                }
+                printData[k] = (temp % 10) + '0';
+                temp /= 10;
+            }
              //   printf( 1, "pid: %d\n", getpid());
-             printf(1, "%d: %d\n", getpid(), j);
+             //   printf(1, "%d: %d\n", getpid(), j);
+             write(1, printData, sizeof(printData));
             }
             exit();
         }
